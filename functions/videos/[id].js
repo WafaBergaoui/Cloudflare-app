@@ -1,28 +1,22 @@
-// GET requests to /filename would return "Hello, world!"
-export const onRequestGet = () => {
-    return new Response("This is alist of videos!")
-  }
+/*export const onRequestGet = () => {
+  return new Response("This is alist of videos!")
+}
 
-  // POST requests to /filename with a JSON-encoded body would return "Hello, <name>!"
-  export const onRequestPost = async ({ request }) => {
-    const { name } = await request.json()
-    return new Response(`Hello, ${name}!`)
-  }
-
+export const onRequestPost = async ({ request }) => {
+  const { name } = await request.json()
+  return new Response(`Hello, ${name}!`)
+}
+*/
 
   import { getSignedStreamId } from "../../utils/cfStream"
 
-  export async function onRequestGet(context) {
-      const {
-          request,
-          env,
-          params,
-      } = context
+  export async function onRequestGet(request, env, params) {
+     
   
       const { id } = params
   
       if (id) {
-          const res = await fetch(`https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/stream/${id}`, {
+          const res = await fetch(`https://dash.cloudflare.com/${env.CF_ACCOUNT_ID}/stream/videos/${id}`, {
               method: "GET",
               headers: {
                   "Authorization": `Bearer ${env.CF_API_TOKEN_STREAM}`
@@ -44,7 +38,7 @@ export const onRequestGet = () => {
                   "content-type": "application/json"
               }
           })
-      } else {
+      } /*else {
           const url = new URL(request.url)
           const res = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/stream?search=${url.searchParams.get("search") || ""}`, {
               headers: {
@@ -68,6 +62,6 @@ export const onRequestGet = () => {
               }
           }))
           return new Response(JSON.stringify(videos), {headers: {"content-type": "application/json"}})
-      }
+      }*/
   }
   
