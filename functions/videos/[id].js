@@ -10,9 +10,8 @@ export const onRequestPost = async ({ request }) => {
 
   import { getSignedStreamId } from "../../utils/cfStream"
 
-  export async function onRequestGet(request, env, params) {
+  export async function onRequestGet( env, params) {
      
-  
       const { id } = params
   
       if (id) {
@@ -23,14 +22,17 @@ export const onRequestPost = async ({ request }) => {
               }
           })
   
+          console.log('This is our response', res);
           const video = (await res.json()).result
   
+          console.log('This is our video', video);
           if (video.meta.visibility !== "public") {
               return new Response(null, {status: 401})
           }
   
           const signedId = await getSignedStreamId(id, env.CF_STREAM_SIGNING_KEY)
   
+          console.log('This is our signedID', signedId);
           return new Response(JSON.stringify({
               signedId: `${signedId}`
           }), {
