@@ -5,6 +5,7 @@ export const onRequestPost = async ({ request }) => {
 }
 */
 
+
   import { getSignedStreamId } from "../../utils/cfStream"
 
   export async function onRequestGet(context) {
@@ -14,27 +15,24 @@ export const onRequestPost = async ({ request }) => {
       params,
     } = context;
      
-      //const { id } = params
+      const { id } = params
   
-      if (params.id) {
-          const res = await fetch(`https://dash.cloudflare.com/${env.CF_ACCOUNT_ID}/stream/videos/${params.id}`, {
+      if (id) {
+          const res = await fetch(`https://dash.cloudflare.com/${env.CF_ACCOUNT_ID}/stream/videos/${id}`, {
               method: "GET",
               headers: {
                   "Authorization": `Bearer ${env.CF_API_TOKEN_STREAM}`
               }
           })
   
-          console.log('This is our response', res);
           const video = (await res.json()).result
   
-          console.log('This is our video', video);
           if (video.meta.visibility !== "public") {
               return new Response(null, {status: 401})
           }
   
           const signedId = await getSignedStreamId(id, env.CF_STREAM_SIGNING_KEY)
   
-          console.log('This is our signedID', signedId);
           return new Response(JSON.stringify({
               signedId: `${signedId}`
           }), {
