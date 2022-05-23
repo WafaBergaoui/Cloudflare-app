@@ -4,9 +4,10 @@ import S from './style.module.scss';
 
 const PlayerView = () => {
 
+  const videoID = "f093769230f52d709c553ddb15d7570a"
   return (
     <div className={S.Player}>
-      <Stream controls src='c5e942f18c35dbe3dc14130901b7853d'/>
+      <Stream controls src={videoID}/>
     </div>
   )
 }
