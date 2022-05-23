@@ -10,7 +10,7 @@ export const onRequestPost = async ({ request }) => {
 
   import { getSignedStreamId } from "../../utils/cfStream"
 
-  export async function onRequestGet( env, params) {
+  export async function onRequestGet( {env, params}) {
      
       const { id } = params
   
@@ -40,7 +40,8 @@ export const onRequestPost = async ({ request }) => {
                   "content-type": "application/json"
               }
           })
-      } /*else {
+      }
+       /*else {
           const url = new URL(request.url)
           const res = await (await fetch(`https://api.cloudflare.com/client/v4/accounts/${env.CF_ACCOUNT_ID}/stream?search=${url.searchParams.get("search") || ""}`, {
               headers: {
