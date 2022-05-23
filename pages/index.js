@@ -1,10 +1,9 @@
-import { PlayerView } from '../components/views'
-
+import { PlayerView } from "../components/views";
 
 export default function Home() {
   return (
-    <div >
+    <div>
       <PlayerView />
     </div>
-  )
+  );
 }

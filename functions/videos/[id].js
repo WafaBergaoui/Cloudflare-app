@@ -1,4 +1,3 @@
-/*
 // GET requests to /filename would return "Hello, world!"
 export const onRequestGet = () => {
     return new Response("This is alist of videos!")
@@ -9,7 +8,7 @@ export const onRequestGet = () => {
     const { name } = await request.json()
     return new Response(`Hello, ${name}!`)
   }
-*/
+
 
   import { getSignedStreamId } from "../../utils/cfStream"
 
