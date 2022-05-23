@@ -10,12 +10,17 @@ export const onRequestPost = async ({ request }) => {
 
   import { getSignedStreamId } from "../../utils/cfStream"
 
-  export async function onRequestGet( {env, params}) {
+  export async function onRequestGet(context) {
+
+    const {
+      env,
+      params,
+    } = context;
      
-      const { id } = params
+      //const { id } = params
   
-      if (id) {
-          const res = await fetch(`https://dash.cloudflare.com/${env.CF_ACCOUNT_ID}/stream/videos/${id}`, {
+      if (params.id) {
+          const res = await fetch(`https://dash.cloudflare.com/${env.CF_ACCOUNT_ID}/stream/videos/${params.id}`, {
               method: "GET",
               headers: {
                   "Authorization": `Bearer ${env.CF_API_TOKEN_STREAM}`
